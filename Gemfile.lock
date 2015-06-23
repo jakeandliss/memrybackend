@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/progrium/ruby-jwt.git
+  revision: 868999f86684c149dbd2eb45ed26d451de222a82
+  specs:
+    jwt (1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -85,6 +91,7 @@ GEM
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     rack (1.6.4)
+    rack-cors (0.2.9)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
@@ -161,7 +168,9 @@ DEPENDENCIES
   devise
   jbuilder (~> 2.0)
   jquery-rails
+  jwt (= 1.1)!
   mysql2
+  rack-cors
   rails (= 4.2.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

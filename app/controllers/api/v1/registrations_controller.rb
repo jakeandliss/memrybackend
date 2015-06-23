@@ -1,12 +1,17 @@
 class Api::V1::RegistrationsController < Devise::RegistrationsController
 
-
   def create
     user = User.new(user_params)
     avatar_uploaded_path = upload_profile_pic(params[:user][:profile_pic])
     user.profile_pic = avatar_uploaded_path
     if user.save
-      render :json => user.as_json(:email => user.email), :status => 201
+      render :json => {
+                 :status => 201,
+                 :message => 'Your account has been created',
+                 :user => {
+                     :email => user.email
+                 }
+             }
       return
     else
       warden.custom_failure!

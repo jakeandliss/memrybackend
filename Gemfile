@@ -28,6 +28,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'mysql2'
 gem 'devise'
+gem 'jwt', '1.1', git: 'https://github.com/progrium/ruby-jwt.git' # V1.1 supports 'exp' and is not released on RubyGems yet.
+gem 'rack-cors'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
