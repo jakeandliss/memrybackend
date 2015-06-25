@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
 
   protected
-
   ##
   # This method can be used as a before filter to protect
   # any actions by ensuring the request is transmitting a

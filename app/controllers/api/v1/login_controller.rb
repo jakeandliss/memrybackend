@@ -10,16 +10,22 @@ class Api::V1::LoginController < Devise::SessionsController
   respond_to :json
 
   def create
-    self.resource = warden.authenticate!(auth_options)
-    # set_flash_message(:notice, :signed_in) if is_flashing_format?
-    # sign_in(resource_name, resource)
-    # yield resource if block_given?
-
-    token = AuthToken.issue_token({user_id: resource.id})
-    respond_with resource, location: after_sign_in_path_for(resource) do |format|
-      format.json { render json: {user: resource.email, token: token} }
+    resource = User.find_for_database_authentication(:email => params[:email])
+    if resource.nil?
+      render :json=> {:success => "ERROR", :message => "User not found"}, :status=>401
+    else
+      if resource.valid_password?(params[:password])
+        token = AuthToken.issue_token({user_id: resource.id})
+        render :json=> {:success => "SUCCESS", :token => token, :user => {
+            :email => resource.email,
+            :first_name => resource.first_name,
+            :last_name => resource.last_name
+          }   
+        }
+      else
+        render :json=> {:success => "ERROR", :error => "Password doesn't match."}, :status=>401
+      end
     end
-
   end
 
 end
