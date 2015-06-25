@@ -30,6 +30,7 @@ gem 'mysql2'
 gem 'devise'
 gem 'jwt', '1.1', git: 'https://github.com/progrium/ruby-jwt.git' # V1.1 supports 'exp' and is not released on RubyGems yet.
 gem 'rack-cors'
+gem "paperclip", "~> 4.2"
 # Use Unicorn as the app server
 # gem 'unicorn'
 
