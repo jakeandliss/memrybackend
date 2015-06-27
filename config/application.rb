@@ -22,5 +22,16 @@ module Memrybackend
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Configure CORS
+    unless Rails.env.development? || Rails.env.test?
+      config.middleware.insert_before Warden::Manager, Rack::Cors do
+        debug true unless Rails.env.production?
+        allow do
+          origins CORS_ALLOWED_DOMAINS
+          resource '*', :headers => :any, :methods => [:get, :post, :put, :delete, :options]
+        end
+      end
+    end
   end
 end
