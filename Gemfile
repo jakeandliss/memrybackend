@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0'
+gem 'rails', '~> 4.2.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -27,10 +27,18 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'mysql2'
+
 gem 'devise'
+
 gem 'jwt', '1.1', git: 'https://github.com/progrium/ruby-jwt.git' # V1.1 supports 'exp' and is not released on RubyGems yet.
+
 gem 'rack-cors'
+
 gem "paperclip", "~> 4.2"
+
+gem 'redis', '~> 3.2.1'
+
+gem 'redis-objects', '~> 1.2.0'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
