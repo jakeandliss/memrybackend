@@ -1,20 +1,12 @@
 Rails.application.routes.draw do
 
-  root 'welcome#index'
+  # root 'welcome#index'
 
-  namespace :api do
-    namespace :v1 do
-      devise_for :user,
-             :path => "/",
-             :path_names => {:sign_in => 'login', :registrations => 'register'},
-      			 :stateless_token => true,
-      			 controllers: {
-                  	registrations: "api/v1/registrations",
-                    sessions: 'api/v1/login',
-                  }
-      # resource 'users'
+  namespace 'api' do
+    namespace 'v1', :constraints => {format: 'json'} do
+      resources :registrations, :controller => "users", :only=> [:create]
     end
-  end
 
+  end
 
 end

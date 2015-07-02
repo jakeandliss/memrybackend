@@ -1,18 +1,15 @@
-class Api::V1::RegistrationsController < Devise::RegistrationsController
+class Api::V1::RegistrationsController < ApplicationController
+
+  skip_before_action :verify_authenticity_token, if: :json_request?
 
   def create
     user = User.new(user_params)
     if user.save
       render :json => {
                  :status => 201,
-                 :message => 'Your account has been created',
-                 :user => {
-                     :email => user.email
-                 }
+                 :message => 'Your account has been created'
              }
-      return
     else
-      warden.custom_failure!
       render :json => user.errors, :status => 422
     end
   end
