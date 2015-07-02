@@ -8,11 +8,11 @@ Rails.application.routes.draw do
              :path => "/",
              :path_names => {:sign_in => 'login', :registrations => 'register'},
       			 :stateless_token => true,
-      			 controllers: { 
+      			 controllers: {
                   	registrations: "api/v1/registrations",
                     sessions: 'api/v1/login',
                   }
-      resource 'users'
+      # resource 'users'
     end
   end
 
