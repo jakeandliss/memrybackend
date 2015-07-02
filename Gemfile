@@ -41,6 +41,8 @@ gem 'redis', '~> 3.2.1'
 gem 'redis-objects', '~> 1.2.0'
 
 gem 'swagger-ui_rails'
+
+gem 'dotenv-rails', '~> 2.0.1'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
