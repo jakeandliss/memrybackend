@@ -1,9 +1,8 @@
 module Api
   module V1
     class Base < ApplicationController
-      before_filter :authenticate_user!
-      before_filter :set_locale
-      helper_method :current_user
+      #before_action :authenticate_user!
+      # helper_method :current_user
 
       def validate_json(schema, data)
         schema_directory = Rails.root.join('doc', 'api', 'schemas')

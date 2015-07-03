@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "userProfile": {
+      "type": "object",
+      "description": "User Profile",
+      "allOf": [
+        {"$ref": "commonDefinitions.json#/definitions/user"},
+        {"$ref": "#/definitions/userProfileDetail"}
+      ]
+    },
+    "userProfileDetail": {
+      "description": "User Profile Details",
+      "type": "object",
+      "properties": {
+        "objective": {
+          "type": "string",
+          "description": "User's objective"
+        },
+        "lifetimePoints": {
+          "type": "integer",
+          "description": "User's total lifetime points"
+        },
+        "energy": {
+          "type": "integer",
+          "description": "User's current energy level"
+        },
+        "nextEnergizedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date & time user will next receive points"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "objective",
+        "lifetimePoints",
+        "energy"
+      ]
+    },
+    "userSettings": {
+      "description": "User Settings",
+      "type": "object",
+      "properties": {
+        "account": {"$ref": "#/definitions/accountSettings"},
+        "emailNotifications": {"$ref": "#/definitions/notificationSettings"},
+        "mobileNotifications": {"$ref": "#/definitions/notificationSettings"},
+        "smsNotifications": {"$ref": "#/definitions/notificationSettings"}
+      }
+    },
+    "accountSettings": {
+      "type": "object",
+      "description": "user account settings",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "emailEditable": {
+          "type": "boolean",
+          "description": "When set, user may change email address"
+        },
+        "gender": {
+          "enum": [
+            "not entered",
+            "male",
+            "female"
+          ]
+        },
+        "birthDate": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["email", "emailEditable", "gender", "birthDate"]
+    },
+    "notificationSettings": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Section title"
+        },
+        "editable": {
+          "type": "boolean",
+          "description": "When set, user may change these settings"
+        },
+        "options": {
+          "type": "array",
+          "description": "Set of options",
+          "items": {"$ref": "#/definitions/setting"}
+        }
+      }
+    },
+    "setting": {
+      "type": "object",
+      "description": "an individual setting",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "attribute name"
+        },
+        "label": {
+          "type": "string",
+          "description": "display label"
+        },
+        "value": {
+          "type": "boolean",
+          "description": "value of setting"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["name", "label", "value"]
+    }
+  }
+}

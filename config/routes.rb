@@ -13,6 +13,7 @@ Rails.application.routes.draw do
                     sessions: 'api/v1/login',
                   }
       resource 'users'
+      resources :sessions
     end
   end
 
