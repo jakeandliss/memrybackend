@@ -6,9 +6,9 @@ module Api
     def create
       user = User.new(user_params)
       if user.save
-        render :json => { :status => :ok, :message => 'Thanks for signing up!'}
+        render json: { message: 'Thanks for signing up!' }, status: :created
       else
-        render :json => user.errors, :status => :error
+        render json: { error: user.errors }, status: :not_acceptable
       end
     end
 
