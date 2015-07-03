@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0'
+gem 'rails', '~> 4.2.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -22,15 +22,26 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem 'mysql2'
+gem 'pg'
+
 gem 'devise'
+
 gem 'jwt', '1.1', git: 'https://github.com/progrium/ruby-jwt.git' # V1.1 supports 'exp' and is not released on RubyGems yet.
-gem 'rack-cors'
+
+gem 'rack-cors', require: 'rack/cors'
+
 gem "paperclip", "~> 4.2"
+
+gem 'redis', '~> 3.2.1'
+
+gem 'redis-objects', '~> 1.2.0'
+
+gem 'swagger-ui_rails'
+
+gem 'dotenv-rails', '~> 2.0.1'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -41,10 +52,11 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
+  gem 'awesome_print'
+
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-

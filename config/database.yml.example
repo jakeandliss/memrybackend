@@ -1,0 +1,24 @@
+development:
+  adapter: postgresql
+  host: localhost
+  encoding: utf8
+  database: memrybook_development
+  pool: 5
+  username: innominds
+  password:
+
+test: &TEST
+  adapter: postgresql
+  encoding: utf8
+  database: _test
+  pool: 5
+  username: innominds
+  password:
+
+production:
+  adapter: postgresql
+  host: localhost
+  encoding: utf8
+  database: memrybook_production
+  username: memree
+  password: memree123
