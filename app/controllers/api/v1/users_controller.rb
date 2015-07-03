@@ -51,17 +51,31 @@ module Api
         render json: { message: 'Password recovery link has been sent to your email' }, status: :ok
       end
 
-      def verify_token
-        if User.find_by_password_reset_token(params[:id])
-          render json: { message: 'Token is valid' }, status: :ok
+      def change_password
+        user = User.find_by_reset_password_token(params[:id])
+        if request.get?
+          if user
+            render json: { message: 'Token is valid.' }, status: :ok
+          else
+            render json: { message: 'Invalid token.' }, status: :not_found
+          end
+        elsif request.put?
+          user.password = params[:user][:password]
+          user.reset_password_token = nil
+          if user.save
+            render json: { message: 'Your password is changed successfully.' }, status: :ok
+          else
+            render json: { error: user.errors }, status: :not_acceptable
+          end
         else
-          render json: { message: 'Invalid token.' }, status: :not_acceptable
+          render json: { message: 'Invalid request.' }, status: :not_acceptable
         end
+
       end
 
       private
       def user_params
-        params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :avatar)
+        params.require(:user).permit(:first_name, :last_name, :email, :password, :avatar)
       end
 
     end

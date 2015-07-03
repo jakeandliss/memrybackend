@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :registrations, :controller => "users", :only => [:create]
       resources :users, :controller => "users", :only => [:update, :show, :destroy]
       resources :forgot_password, :to => "users#forgot_password", :only => [:create]
-      resources :verify_token, :to => "users#verify_token", :only => [:show]
+      resources :change_password, :to => "users#change_password", :only => [:show, :update]
     end
 
   end
