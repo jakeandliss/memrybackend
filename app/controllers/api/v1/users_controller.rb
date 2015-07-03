@@ -36,6 +36,14 @@ module Api
         end
       end
 
+      def destroy
+        if User.find(params[:id]).destroy
+          render json: { message: 'Your account is deleted with all your datas' }, status: :ok
+        else
+          render json: { message: user.errors }, status: :not_found
+        end
+      end
+
       def user_params
         params.require(:user).permit(:first_name, :last_name, :email, :password, :avatar)
       end
