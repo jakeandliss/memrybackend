@@ -46,6 +46,13 @@ module Api
         end
       end
 
+      def forgot_password
+        user = User.find_by_email!(params[:user][:email])
+        user.send_password_reset if user
+        render json: { message: 'email' }, status: :ok
+      end
+
+      private
       def user_params
         params.require(:user).permit(:first_name, :last_name, :email, :password, :avatar)
       end
