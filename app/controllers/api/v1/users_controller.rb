@@ -49,7 +49,15 @@ module Api
       def forgot_password
         user = User.find_by_email!(params[:user][:email])
         user.send_password_reset if user
-        render json: { message: 'email' }, status: :ok
+        render json: { message: 'Password recovery link has been sent to your email' }, status: :ok
+      end
+
+      def verify_token
+        if User.find_by_password_reset_token(params[:id])
+          render json: { message: 'Token is valid' }, status: :ok
+        else
+          render json: { message: 'Invalid token.' }, status: :not_acceptable
+        end
       end
 
       private

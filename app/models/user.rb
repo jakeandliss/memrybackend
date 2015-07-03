@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_secure_password
   # has_many :entries, :dependent => :destroy
   # 	has_many :tags, :dependent => :destroy
 
@@ -16,7 +15,7 @@ class User < ActiveRecord::Base
   def send_password_reset
     self.password_reset_token = SecureRandom.urlsafe_base64
     self.reset_password_sent_at = Time.zone.now
-    save!
+    self.save(validate: false)
   end
 
 end
