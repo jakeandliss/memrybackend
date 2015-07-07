@@ -16,7 +16,7 @@ module Api
       def update
         user = User.find(params[:id])
         if user.update_attributes(user_params)
-          render json: { message: 'Your profile has been updated' }, status: :ok
+          render json: { message: 'Your profile has been updated.' }, status: :ok
         else
           render json: { error: user.errors }, status: :not_acceptable
         end
@@ -46,31 +46,23 @@ module Api
       end
 
       def forgot_password
-        user = User.find_by_email!(params[:user][:email])
-        user.send_password_reset if user
-        render json: { message: 'Password recovery link has been sent to your email' }, status: :ok
+        if User.find_by(email: params[:user][:email])
+          render json: { message: 'Password recovery link has been sent to your email' }, status: :ok
+        else
+          render json: { message: 'This is not a registered account. Please signup.' }, status: :not_found
+        end
       end
 
       def change_password
-        user = User.find_by_reset_password_token(params[:id])
-        if request.get?
-          if user
-            render json: { message: 'Token is valid.' }, status: :ok
-          else
-            render json: { message: 'Invalid token.' }, status: :not_found
-          end
-        elsif request.put?
+        user = User.find_by(reset_password_token: params[:user][:token])
+        if user
           user.password = params[:user][:password]
           user.reset_password_token = nil
-          if user.save
-            render json: { message: 'Your password is changed successfully.' }, status: :ok
-          else
-            render json: { error: user.errors }, status: :not_acceptable
-          end
+          user.save
+          render json: { message: 'Your password is changed successfully.' }, status: :ok
         else
-          render json: { message: 'Invalid request.' }, status: :not_acceptable
+          render json: { message: 'Invalid token.' }, status: :not_found
         end
-
       end
 
       private
