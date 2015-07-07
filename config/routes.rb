@@ -4,8 +4,7 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     namespace 'v1', :constraints => {format: 'json'} do
-      resources :users, :controller => "users", :only => [:update]
-      match 'registrations' => 'users#create', via: :post
+      resources :users, :controller => "users", :only => [:create, :update]
     end
   end
 end
