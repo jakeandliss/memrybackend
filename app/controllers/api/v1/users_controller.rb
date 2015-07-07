@@ -17,7 +17,7 @@ module Api
       def create
         user = User.new(user_params)
         if user.save
-          render json: { message: 'Thanks for signing up!' }, status: :created
+          render json: { message: t("user.signup.success") }, status: :created
         else
           render json: { error: user.errors }, status: :not_acceptable
         end
@@ -29,7 +29,7 @@ module Api
       def update
         user = User.find(params[:id])
         if user.update_attributes(user_params)
-          render json: { message: 'Your profile has been updated' }, status: :ok
+          render json: { message: t("user.update.success") }, status: :ok
         else
           render json: { error: user.errors }, status: :not_acceptable
         end
@@ -54,7 +54,7 @@ module Api
       # delete user profile
       def destroy
         if User.find(params[:id]).destroy
-          render json: { message: 'Your account is deleted with all your datas' }, status: :ok
+          render json: { message: t("user.destroy.success") }, status: :ok
         else
           render json: { message: user.errors }, status: :not_found
         end
@@ -64,7 +64,7 @@ module Api
       def forgot_password
         user = User.find_by(email: params[:user][:email])
         user.send_password_reset if user
-        render json: { message: 'Password recovery link has been sent to your email' }, status: :ok
+        render json: { message: t("user.forgot_password.success") }, status: :ok
       end
 
       # user change password
@@ -94,9 +94,9 @@ module Api
       # check if user already exists
       def check_user_exists
         if User.find_by(email: params[:email])
-          render json: { message: 'User already exits.' }, status: :ok
+          render json: { message: t("user.check_user_exists.success") }, status: :ok
         else
-          render json: { message: 'User not found' }, status: :not_found
+          render json: { message: t("user.check_user_exists.failure") }, status: :not_found
         end
       end
 
