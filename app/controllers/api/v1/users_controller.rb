@@ -4,6 +4,7 @@ module Api
       skip_before_action :verify_authenticity_token, if: :json_request?
       skip_before_filter  :verify_authenticity_token
 
+      # register new user
       def create
         user = User.new(user_params)
         if user.save
@@ -13,6 +14,7 @@ module Api
         end
       end
 
+      # update user profile
       def update
         user = User.find(params[:id])
         if user.update_attributes(user_params)
@@ -22,6 +24,7 @@ module Api
         end
       end
 
+      # display user profile
       def show
         user = User.find(params[:id])
         if user
@@ -37,6 +40,7 @@ module Api
         end
       end
 
+      # delete user profile
       def destroy
         if User.find(params[:id]).destroy
           render json: { message: 'Your account is deleted with all your datas' }, status: :ok
@@ -45,12 +49,16 @@ module Api
         end
       end
 
+      # user forgot password request
       def forgot_password
         user = User.find_by_email!(params[:user][:email])
         user.send_password_reset if user
         render json: { message: 'Password recovery link has been sent to your email' }, status: :ok
       end
 
+      # user change password
+      # validates token in get request
+      # updates password in put request
       def change_password
         user = User.find_by_reset_password_token(params[:id])
         if request.get?
@@ -72,6 +80,7 @@ module Api
         end
       end
 
+      # check if user already exists
       def check_user_exists
         user = User.find_by_email(params[:email]);
         if user
