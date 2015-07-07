@@ -71,7 +71,15 @@ module Api
         else
           render json: { message: 'Invalid request.' }, status: :not_acceptable
         end
+      end
 
+      def check_user_exists
+        user = User.find_by_email(params[:email]);
+        if user
+          render json: { message: 'User already exits.' }, status: :ok
+        else
+          render json: { message: 'User not found' }, status: :not_found
+        end
       end
 
       private
