@@ -3,6 +3,8 @@ module Api
     class UsersController  < ApplicationController
       skip_before_action :verify_authenticity_token, if: :json_request?
       skip_before_filter  :verify_authenticity_token
+      before_action :load_user, only: [:show, :update, :destroy]
+
 
     def create
       user = User.create(user_params)
@@ -14,34 +16,33 @@ module Api
     end
 
       def update
-        user = User.find(params[:id])
-        if user.update_attributes(user_params)
+        if @user.update_attributes(user_params)
           render json: { message: 'Your profile has been updated.' }, status: :ok
         else
-          render json: { error: user.errors }, status: :not_acceptable
+          render json: { error: @user.errors }, status: :not_acceptable
         end
       end
 
       def show
-        user = User.find(params[:id])
-        if user
+        if @user
           data = {
-            'first_name' => user.first_name,
-            'last_name' => user.last_name,
-            'email' => user.email,
-            'avatar' => user.avatar
+            'first_name' => @user.first_name,
+            'last_name' => @user.last_name,
+            'email' => @user.email,
+            'avatar' => @user.avatar
           }
           render json: { data: data }, status: :ok
         else
-          render json: { message: user.errors }, status: :not_found
+          render json: { message: @user.errors }, status: :not_found
         end
       end
 
       def destroy
-        if User.find(params[:id]).destroy
-          render json: { message: 'Your account is deleted with all your datas' }, status: :ok
+        if @user
+          @user.destroy
+          render json: { message: 'Your account is deleted with all your datas.' }, status: :ok
         else
-          render json: { message: user.errors }, status: :not_found
+          render json: { message: 'This is not a registered account.' }, status: :not_found
         end
       end
 
@@ -49,7 +50,7 @@ module Api
         if User.find_by(email: params[:user][:email])
           render json: { message: 'Password recovery link has been sent to your email' }, status: :ok
         else
-          render json: { message: 'This is not a registered account. Please signup.' }, status: :not_found
+          render json: { message: 'This is not a registered account.' }, status: :not_found
         end
       end
 
@@ -66,8 +67,13 @@ module Api
       end
 
       private
+
       def user_params
         params.require(:user).permit(:first_name, :last_name, :email, :password, :avatar)
+      end
+
+      def load_user
+        @user = User.find(params[:id])
       end
 
     end
