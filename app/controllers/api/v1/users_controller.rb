@@ -62,7 +62,7 @@ module Api
 
       # user forgot password request
       def forgot_password
-        user = User.find_by_email!(params[:user][:email])
+        user = User.find_by(email: params[:user][:email])
         user.send_password_reset if user
         render json: { message: 'Password recovery link has been sent to your email' }, status: :ok
       end
@@ -71,7 +71,7 @@ module Api
       # validates token in get request
       # updates password in put request
       def change_password
-        user = User.find_by_reset_password_token(params[:id])
+        user = User.find_by(reset_password_token: params[:id])
         if request.get?
           if user
             render json: { message: 'Token is valid.' }, status: :ok
@@ -93,8 +93,7 @@ module Api
 
       # check if user already exists
       def check_user_exists
-        user = User.find_by_email(params[:email]);
-        if user
+        if User.find_by(email: params[:email])
           render json: { message: 'User already exits.' }, status: :ok
         else
           render json: { message: 'User not found' }, status: :not_found
