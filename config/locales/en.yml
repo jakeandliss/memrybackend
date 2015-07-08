@@ -20,4 +20,19 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  user:
+    signup:
+      success: "Thanks for signing up!"
+    update:
+      success: "Your profile has been updated."
+    destroy:
+      success: "Your account is deleted with all your datas."
+    forgot_password:
+      success: "Password recovery link has been sent to your email."
+      failure: "This is not a registered account."
+    change_password:
+      success: "Your password is changed successfully."
+      failure: "Invalid password recovery token."
+    check_user_exists:
+      success: "User already exits."
+      failure: "User not found."
