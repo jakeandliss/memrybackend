@@ -23,17 +23,11 @@ module Api
       end
 
       def show
-        user = User.find(params[:id])
-        if user
-          data = {
-            'first_name' => user.first_name,
-            'last_name' => user.last_name,
-            'email' => user.email,
-            'avatar' => user.avatar
-          }
-          render json: { data: data }, status: :ok
+        @user = User.find(params[:id])
+        if @user
+          render 'users.json.jbuilder', status: :ok
         else
-          render json: { message: user.errors }, status: :not_found
+          render json: { message: 'This is not a registered user.' }, status: :not_found
         end
       end
 
