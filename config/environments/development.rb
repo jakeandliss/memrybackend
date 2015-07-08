@@ -40,4 +40,20 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   CORS_ALLOWED_DOMAINS = '*'
+
+  # config.active_job.queue_adapter = :sidekiq
+  config.action_mailer.default_url_options = { :host => "localhost:3000" }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp.zoho.com",
+    port: 465,
+    domain: "memrybook.com",
+    authentication: :login,
+    tls: true,
+    enable_starttls_auto: true,
+    user_name: "info@memrybook.com",
+    password: "JandL1023"
+  }
+
 end
