@@ -4,7 +4,12 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     namespace 'v1', :constraints => {format: 'json'} do
-      resources :registrations, :controller => "users", :only=> [:create]
+      resources :users, :controller => "users", :only => [:create, :update, :show, :destroy] do
+        collection do
+          post :forgot_password
+          post :change_password
+        end
+      end
     end
 
   end
