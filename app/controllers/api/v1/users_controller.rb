@@ -6,19 +6,18 @@ module Api
 
       before_action :load_user, only: [:show, :update, :destroy]
 
-
-      def create
-        user = User.create(user_params)
-        if user.save
-          render json: { message: 'Thanks for signing up!' }, status: :created
-        else
-          render json: { error: user.errors }, status: :not_acceptable
-        end
+    def create
+      user = User.create(user_params)
+      if user.save
+        render json: { message: t("user.signup.success") }, status: :created
+      else
+        render json: { error: user.errors }, status: :not_acceptable
       end
+    end
 
       def update
         if @user.update_attributes(user_params)
-          render json: { message: 'Your profile has been updated.' }, status: :ok
+          render json: { message: t("user.update.success") }, status: :ok
         else
           render json: { error: @user.errors }, status: :not_acceptable
         end
@@ -41,9 +40,9 @@ module Api
       def destroy
         if @user
           @user.destroy
-          render json: { message: 'Your account is deleted with all your datas.' }, status: :ok
+          render json: { message: t("user.destroy.success") }, status: :ok
         else
-          render json: { message: 'This is not a registered account.' }, status: :not_found
+          render json: { message:  t("user.destroy.success") }, status: :not_found
         end
       end
 
@@ -51,9 +50,9 @@ module Api
         user = User.find_by(email: params[:user][:email])
         if user
           user.send_password_reset
-          render json: { message: 'Password recovery link has been sent to your email' }, status: :ok
+          render json: { message: t("user.forgot_password.success") }, status: :ok
         else
-          render json: { message: 'This is not a registered account.' }, status: :not_found
+          render json: { message: t("user.forgot_password.failure") }, status: :not_found
         end
       end
 
@@ -63,9 +62,17 @@ module Api
           user.password = params[:user][:password]
           user.reset_password_token = nil
           user.save
-          render json: { message: 'Your password is changed successfully.' }, status: :ok
+          render json: { message: t("user.change_password.success") }, status: :ok
         else
-          render json: { message: 'Invalid token.' }, status: :not_found
+          render json: { message: t("user.change_password.failure") }, status: :not_found
+        end
+      end
+
+      def check_user
+        if User.find_by(email: params[:email])
+          render json: { message: t("user.check_user_exists.success") }, status: :ok
+        else
+          render json: { message: t("user.check_user_exists.failure") }, status: :not_found
         end
       end
 
