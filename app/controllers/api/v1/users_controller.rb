@@ -9,7 +9,7 @@ module Api
     def create
       @user = User.create(user_params)
       if @user.save
-        UserMailer.registration_success(@user).deliver_now
+        UserMailer.registration_success(@user).deliver_later!
         render json: { message: t("user.signup.success") }, status: :created
       else
         render json: { error: @user.errors }, status: :not_acceptable
@@ -37,7 +37,7 @@ module Api
         @user = User.find_by(email: params[:user][:email])
         if @user
           @user.send_password_reset
-          UserMailer.forgot_password(@user).deliver_now
+          UserMailer.forgot_password(@user).deliver_later!
           render json: { message: t("user.forgot_password.success") }, status: :ok
         else
           render json: { error: t("user.common.failure") }, status: :not_found
