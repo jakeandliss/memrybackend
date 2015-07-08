@@ -14,6 +14,7 @@ module Api
       else
         render json: { error: @user.errors }, status: :not_acceptable
       end
+    end
 
       def update
         if @user.update_attributes(user_params)
