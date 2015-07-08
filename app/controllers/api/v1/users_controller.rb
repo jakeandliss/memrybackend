@@ -3,17 +3,18 @@ module Api
     class UsersController  < ApplicationController
       skip_before_action :verify_authenticity_token, if: :json_request?
       skip_before_filter  :verify_authenticity_token
+
       before_action :load_user, only: [:show, :update, :destroy]
 
 
-    def create
-      user = User.create(user_params)
-      if user.save
-        render json: { message: 'Thanks for signing up!' }, status: :created
-      else
-        render json: { error: user.errors }, status: :not_acceptable
+      def create
+        user = User.create(user_params)
+        if user.save
+          render json: { message: 'Thanks for signing up!' }, status: :created
+        else
+          render json: { error: user.errors }, status: :not_acceptable
+        end
       end
-    end
 
       def update
         if @user.update_attributes(user_params)
