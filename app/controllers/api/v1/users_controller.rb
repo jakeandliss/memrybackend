@@ -47,7 +47,9 @@ module Api
       end
 
       def forgot_password
-        if User.find_by(email: params[:user][:email])
+        user = User.find_by(email: params[:user][:email])
+        if user
+          user.send_password_reset
           render json: { message: 'Password recovery link has been sent to your email' }, status: :ok
         else
           render json: { message: 'This is not a registered account.' }, status: :not_found
