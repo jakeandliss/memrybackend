@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :email, :password, presence: true
 
+
   def send_password_reset
     self.reset_password_token = SecureRandom.urlsafe_base64
     self.reset_password_sent_at = Time.zone.now

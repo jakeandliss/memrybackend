@@ -3,47 +3,32 @@ module Api
     class UsersController  < ApplicationController
       skip_before_action :verify_authenticity_token, if: :json_request?
       skip_before_filter  :verify_authenticity_token
+      before_action :load_user, only: [:show, :update, :destroy]
 
-
-    def create
-      user = User.create(user_params)
-      if user.save
-        render json: { message: t("user.signup.success") }, status: :created
-      else
-        render json: { error: user.errors }, status: :not_acceptable
-      end
-    end
-
-      def update
-        user = User.find(params[:id])
-        if user.update_attributes(user_params)
-          render json: { message: t("user.update.success") }, status: :ok
+      def create
+        user = User.create(user_params)
+        if user.save
+          render json: { message: t("user.signup.success") }, status: :created
         else
           render json: { error: user.errors }, status: :not_acceptable
         end
       end
 
-      def show
-        user = User.find(params[:id])
-        if user
-          data = {
-            'first_name' => user.first_name,
-            'last_name' => user.last_name,
-            'email' => user.email,
-            'avatar' => user.avatar
-          }
-          render json: { data: data }, status: :ok
+      def update
+        if @user.update_attributes(user_params)
+          render json: { message: t("user.update.success") }, status: :ok
         else
-          render json: { message: user.errors }, status: :not_found
+          render json: { error: @user.errors }, status: :not_acceptable
         end
       end
 
+      def show
+          render 'users.json.jbuilder', status: :ok
+      end
+
       def destroy
-        if User.find(params[:id]).destroy
-          render json: { message: t("user.destroy.success") }, status: :ok
-        else
-          render json: { message: user.errors }, status: :not_found
-        end
+        @user.destroy
+        render json: { message: t("user.destroy.success") }, status: :ok
       end
 
       def forgot_password
@@ -52,7 +37,7 @@ module Api
           user.send_password_reset
           render json: { message: t("user.forgot_password.success") }, status: :ok
         else
-          render json: { message: t("user.forgot_password.failure") }, status: :not_found
+          render json: { error: t("user.common.failure") }, status: :not_found
         end
       end
 
@@ -64,7 +49,7 @@ module Api
           user.save
           render json: { message: t("user.change_password.success") }, status: :ok
         else
-          render json: { message: t("user.change_password.failure") }, status: :not_found
+          render json: { error: t("user.change_password.failure") }, status: :not_found
         end
       end
 
@@ -72,13 +57,18 @@ module Api
         if User.find_by(email: params[:email])
           render json: { message: t("user.check_user_exists.success") }, status: :ok
         else
-          render json: { message: t("user.check_user_exists.failure") }, status: :not_found
+          render json: { error: t("user.common.failure") }, status: :not_found
         end
       end
 
       private
+
       def user_params
         params.require(:user).permit(:first_name, :last_name, :email, :password, :avatar)
+      end
+
+      def load_user
+        @user = User.find(params[:id])
       end
 
     end
