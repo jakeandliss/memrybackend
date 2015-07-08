@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   # root 'welcome#index'
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 
   namespace 'api' do
     namespace 'v1', :constraints => {format: 'json'} do
