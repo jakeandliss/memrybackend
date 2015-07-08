@@ -11,6 +11,7 @@ module Api
       else
         render json: { error: user.errors }, status: :not_acceptable
       end
+    end
 
       def update
         user = User.find(params[:id])
