@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         collection do
           post :forgot_password
           post :change_password
+          post :check_user
         end
       end
     end

@@ -8,7 +8,7 @@ module Api
     def create
       user = User.create(user_params)
       if user.save
-        render json: { message: 'Thanks for signing up!' }, status: :created
+        render json: { message: t("user.signup.success") }, status: :created
       else
         render json: { error: user.errors }, status: :not_acceptable
       end
@@ -17,7 +17,7 @@ module Api
       def update
         user = User.find(params[:id])
         if user.update_attributes(user_params)
-          render json: { message: 'Your profile has been updated' }, status: :ok
+          render json: { message: t("user.update.success") }, status: :ok
         else
           render json: { error: user.errors }, status: :not_acceptable
         end
@@ -40,16 +40,40 @@ module Api
 
       def destroy
         if User.find(params[:id]).destroy
-          render json: { message: 'Your account is deleted with all your datas' }, status: :ok
+          render json: { message: t("user.destroy.success") }, status: :ok
         else
           render json: { message: user.errors }, status: :not_found
         end
       end
 
       def forgot_password
-        user = User.find_by_email!(params[:user][:email])
-        user.send_password_reset if user
-        render json: { message: 'email' }, status: :ok
+        user = User.find_by(email: params[:user][:email])
+        if user
+          user.send_password_reset
+          render json: { message: t("user.forgot_password.success") }, status: :ok
+        else
+          render json: { message: t("user.forgot_password.failure") }, status: :not_found
+        end
+      end
+
+      def change_password
+        user = User.find_by(reset_password_token: params[:user][:token])
+        if user
+          user.password = params[:user][:password]
+          user.reset_password_token = nil
+          user.save
+          render json: { message: t("user.change_password.success") }, status: :ok
+        else
+          render json: { message: t("user.change_password.failure") }, status: :not_found
+        end
+      end
+
+      def check_user
+        if User.find_by(email: params[:email])
+          render json: { message: t("user.check_user_exists.success") }, status: :ok
+        else
+          render json: { message: t("user.check_user_exists.failure") }, status: :not_found
+        end
       end
 
       private
