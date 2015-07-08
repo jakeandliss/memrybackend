@@ -4,7 +4,6 @@ module Api
       skip_before_action :verify_authenticity_token, if: :json_request?
       skip_before_filter  :verify_authenticity_token
 
-<<<<<<< HEAD
 
     def create
       user = User.create(user_params)
@@ -12,30 +11,18 @@ module Api
         render json: { message: 'Thanks for signing up!' }, status: :created
       else
         render json: { error: user.errors }, status: :not_acceptable
-=======
-      # register new user
-      def create
-        user = User.new(user_params)
-        if user.save
-          render json: { message: t("user.signup.success") }, status: :created
-        else
-          render json: { error: user.errors }, status: :not_acceptable
-        end
->>>>>>> action describe comment added
       end
     end
 
-      # update user profile
       def update
         user = User.find(params[:id])
         if user.update_attributes(user_params)
-          render json: { message: t("user.update.success") }, status: :ok
+          render json: { message: 'Your profile has been updated' }, status: :ok
         else
           render json: { error: user.errors }, status: :not_acceptable
         end
       end
 
-      # display user profile
       def show
         user = User.find(params[:id])
         if user
@@ -51,53 +38,18 @@ module Api
         end
       end
 
-      # delete user profile
       def destroy
         if User.find(params[:id]).destroy
-          render json: { message: t("user.destroy.success") }, status: :ok
+          render json: { message: 'Your account is deleted with all your datas' }, status: :ok
         else
           render json: { message: user.errors }, status: :not_found
         end
       end
 
-      # user forgot password request
       def forgot_password
-        user = User.find_by(email: params[:user][:email])
+        user = User.find_by_email!(params[:user][:email])
         user.send_password_reset if user
-        render json: { message: t("user.forgot_password.success") }, status: :ok
-      end
-
-      # user change password
-      # validates token in get request
-      # updates password in put request
-      def change_password
-        user = User.find_by(reset_password_token: params[:id])
-        if request.get?
-          if user
-            render json: { message: 'Token is valid.' }, status: :ok
-          else
-            render json: { message: 'Invalid token.' }, status: :not_found
-          end
-        elsif request.put?
-          user.password = params[:user][:password]
-          user.reset_password_token = nil
-          if user.save
-            render json: { message: 'Your password is changed successfully.' }, status: :ok
-          else
-            render json: { error: user.errors }, status: :not_acceptable
-          end
-        else
-          render json: { message: 'Invalid request.' }, status: :not_acceptable
-        end
-      end
-
-      # check if user already exists
-      def check_user_exists
-        if User.find_by(email: params[:email])
-          render json: { message: t("user.check_user_exists.success") }, status: :ok
-        else
-          render json: { message: t("user.check_user_exists.failure") }, status: :not_found
-        end
+        render json: { message: 'email' }, status: :ok
       end
 
       private
