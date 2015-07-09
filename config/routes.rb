@@ -13,6 +13,7 @@ Rails.application.routes.draw do
           post :check_user
         end
       end
+      resources :tags, :controller => "tags"
     end
   end
 end
