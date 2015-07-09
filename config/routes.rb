@@ -14,6 +14,7 @@ Rails.application.routes.draw do
           post :validate_email
         end
       end
+      resources :tags, :controller => "tags"
     end
   end
 
