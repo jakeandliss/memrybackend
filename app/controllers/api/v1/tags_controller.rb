@@ -2,7 +2,7 @@ class Api::V1::TagsController < ApplicationController
   skip_before_action :verify_authenticity_token, if: :json_request?
   skip_before_filter  :verify_authenticity_token
   before_action :ancestor_tag, only: [:create]
-  before_action :load_tag, only: [:show, :update, :destroy]
+  before_action :load_tag, only: [:update, :destroy]
 
   def create
     @tag = Tag.create!(name: params[:tag][:name], user_id: 22, ancestry: @ancestor_tag)
@@ -11,12 +11,6 @@ class Api::V1::TagsController < ApplicationController
     else
       render json: { error: @tag.errors }, status: :not_acceptable
     end
-  end
-
-
-  def show
-    @show_tag = Tag.find_by(user: 22, id:@tag.id )
-    render 'tags.json.jbuilder', status: :ok
   end
 
   def update
@@ -34,6 +28,10 @@ class Api::V1::TagsController < ApplicationController
     render json: { message: "Tag deleted successfully" }, status: :ok
   end
 
+  def user_tags
+    @show_tag = Tag.find_by(user: 22 )
+    render 'tags.json.jbuilder', status: :ok
+  end
 
   private
 
