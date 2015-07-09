@@ -29,7 +29,7 @@ class Api::V1::TagsController < ApplicationController
   end
 
   def user_tags
-    @show_tag = Tag.find_by(user: 22 )
+    @tag = Tag.find_by(user: 22 )
     render 'tags.json.jbuilder', status: :ok
   end
 

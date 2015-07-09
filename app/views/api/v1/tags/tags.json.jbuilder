@@ -1,3 +1,3 @@
-json.extract! @show_tag, :id, :name
-json.parent @show_tag.parent, :id, :name if @show_tag.parent
-json.children @show_tag.children , :id, :name if @show_tag.children
+json.extract! @tag, :id, :name
+json.parent @tag.parent, :id, :name if @tag.parent
+json.children @tag.children , :id, :name if @tag.children
