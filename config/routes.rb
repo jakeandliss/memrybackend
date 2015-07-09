@@ -12,9 +12,10 @@ Rails.application.routes.draw do
           post :forgot_password
           post :change_password
           post :validate_email
+          get  :tags, :to => "tags#user_tags"
         end
       end
-      resources :tags, :controller => "tags"
+      resources :tags, :controller => "tags", :only => [:create, :update, :destroy]
     end
   end
 
