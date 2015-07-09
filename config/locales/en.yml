@@ -36,3 +36,10 @@ en:
       success: "User already exits."
     common:
       failure: "This is not a registered account."
+  tags:
+    create:
+      success: "New tag created."
+    update:
+      success: "Tag updated successfully"
+    destroy:
+      success: "Tag deleted successfully"

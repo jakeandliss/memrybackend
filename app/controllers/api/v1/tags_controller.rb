@@ -7,7 +7,7 @@ class Api::V1::TagsController < ApplicationController
   def create
     @tag = Tag.create!(name: params[:tag][:name], user_id: 22, ancestry: @ancestor_tag)
     if @tag.save
-      render json: { message: "New tag created" }, status: :created
+      render json: { message: t("tags.create.success") }, status: :created
     else
       render json: { error: @tag.errors }, status: :not_acceptable
     end
@@ -15,9 +15,9 @@ class Api::V1::TagsController < ApplicationController
 
   def update
     @tag.name = params[:tag][:name]
-    @tag.ancestry = params[:tag][:parent]
+    @tag.ancestry = params[:tag][:parent] if params[:tag][:parent]
     if @tag.save
-      render json: { message: "Tag updated successfully" }, status: :ok
+      render json: { message: t("tags.update.success") }, status: :ok
     else
       render json: { error: @tag.errors }, status: :not_acceptable
     end
@@ -25,7 +25,7 @@ class Api::V1::TagsController < ApplicationController
 
   def destroy
     @tag.destroy
-    render json: { message: "Tag deleted successfully" }, status: :ok
+    render json: { message: t("tags.destroy.success") }, status: :ok
   end
 
   def user_tags
