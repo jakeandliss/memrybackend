@@ -42,6 +42,16 @@ gem 'redis-objects', '~> 1.2.0'
 gem 'swagger-ui_rails'
 
 gem 'dotenv-rails', '~> 2.0.1'
+
+gem 'sidekiq'
+
+gem 'sinatra',  :require => nil
+
+gem 'friendly_id'
+
+gem 'delayed_paperclip'
+
+gem 'ancestry'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

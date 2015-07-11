@@ -18,7 +18,7 @@ module Memrybackend
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
+    config.i18n.default_locale = :en
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
@@ -33,5 +33,19 @@ module Memrybackend
         end
       end
     end
+
+    #Configure SMTP
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address: ENV["SMTP_HOST"],
+      port: ENV["SMTP_PORT"],
+      domain: ENV["APP_DOMAIN"],
+      authentication: :ENV["SMTP_AUTHENTICATION"],
+      tls: ENV["SMTP_TLS"],
+      enable_starttls_auto: ENV["SMTP_ESA"],
+      user_name: ENV["SMTP_USERNAME"],
+      password: ENV["SMTP_PASSWORD"]
+    }
+
   end
 end

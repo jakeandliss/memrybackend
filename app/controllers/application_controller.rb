@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound do |exception|
-    render json: { message: exception.message }, status: 404
+    render json: { error: exception.message }, status: 404
   end
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
