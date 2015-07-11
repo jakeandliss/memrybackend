@@ -1,6 +1,14 @@
 module Api
   module V1
     class Base < ApplicationController
+      rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError do |exception|
+        render json: { error: exception.message }, status: :not_found
+      end
+
+      rescue_from Exception do |exception|
+        render json: { error: exception.message }, status: :internal_server_error
+      end
+
       #before_action :authenticate_user!
       # helper_method :current_user
 
@@ -16,6 +24,10 @@ module Api
 
       def current_user
         authenticate_by_token || super
+      end
+
+      def report_errors_on(record)
+        render json: { message: { errors: record.errors.full_messages } }, status: :unprocessable_entity
       end
     end
   end
