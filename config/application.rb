@@ -33,5 +33,19 @@ module Memrybackend
         end
       end
     end
+
+    #Configure SMTP
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address: ENV["SMTP_HOST"],
+      port: ENV["SMTP_PORT"],
+      domain: ENV["APP_DOMAIN"],
+      authentication: :ENV["SMTP_AUTHENTICATION"],
+      tls: ENV["SMTP_TLS"],
+      enable_starttls_auto: ENV["SMTP_ESA"],
+      user_name: ENV["SMTP_USERNAME"],
+      password: ENV["SMTP_PASSWORD"]
+    }
+
   end
 end
