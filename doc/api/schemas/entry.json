@@ -1,0 +1,4 @@
+{
+  "$schema": "http://json-schem.org/draft-04/schema",
+  "$ref":    "entryDefinitions.json#/definitions/entry"
+}

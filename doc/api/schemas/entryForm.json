@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Form to make a memrybook entry",
+  "type": "object",
+  "properties": {
+    "entry": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Entry title"
+        },
+        "content": {
+          "type": "string",
+          "description": "Entry Description"
+        },
+        "titleDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "tags": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "String",
+          "description": "Label Name"
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "properties": {
+        "entryId": {
+          "type": "Integer",
+          "description": "Entry Foreign Key Reference"
+        },
+        "attachments": {
+          "type": "array",
+          "items": {"$ref": "entryDefinitions.json#definitions/navigationLink"}
+        }
+      }
+    }
+  }
+}
