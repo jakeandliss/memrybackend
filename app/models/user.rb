@@ -1,12 +1,10 @@
 class User < ActiveRecord::Base
-  has_many :entries, dependent: destroy
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
-  has_many :entries, :dependent => :destroy
+  has_many :entries, dependent: :destroy
   has_many :tags, :dependent => :destroy
 
   has_attached_file :avatar, :styles => { :medium => "300x300>", :avatar =>  "150x150#", :thumb => "100x100>" }, :default_url => "blank_avatar.png"

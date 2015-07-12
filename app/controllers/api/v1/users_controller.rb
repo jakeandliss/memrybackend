@@ -2,8 +2,8 @@ module Api
   module V1
     class UsersController  < ApplicationController
       skip_before_action :verify_authenticity_token, if: :json_request?
-      before_action      :validate_schema, only: [:create]
-      before_action :load_user, only: [:show, :update, :destroy]
+      before_action      :validate_schema, only: [:create, :update]
+      before_action      :load_user, only: [:show, :update, :destroy]
 
       def create
         user = User.new(@registration_attr)
@@ -25,7 +25,6 @@ module Api
       end
 
       def show
-          render 'users.json.jbuilder', status: :ok
       end
 
       def destroy
@@ -66,12 +65,8 @@ module Api
 
       private
 
-      def registration_attributes
-        @registration_attr = convert_hash_keys(params.require(:userRegistration).permit(:firstName, :lastName, :email, :password))
-      end
-
-      def user_params
-        params.require(:user).permit(:first_name, :last_name, :email, :password, :avatar)
+      def user_attributes
+        @user_attr = convert_hash_keys(params.require(:userRegistration).permit(:firstName, :lastName, :email, :password))
       end
 
       def load_user
@@ -79,11 +74,11 @@ module Api
       end
 
       def validate_schema
-        validate_json('userRegistration', params.require(:userRegistration))
+        validate_json('userRegistrationForm', params.require(:userRegistration))
         if @errors.empty?
-          registration_attributes
+          user_attributes
         else
-          render json: {message: @errors}, status: 422
+          render json: { message: @errors }, status: :unprocessable_entity
         end
       end
     end

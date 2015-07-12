@@ -19,68 +19,10 @@
     "lastName": {
       "type": "string"
     },
-    "gender": {
-      "enum": ["male", "female"]
-    },
     "avatarUrl": {
       "type": "string",
       "format": "uri",
       "description": "URL for avatar image"
-    },
-    "birthdate": {
-      "type": "string",
-      "format": "date"
-    },
-    "timeZone": {
-      "type": "string"
-    },
-    "lifetimePoints": {
-      "type": "integer",
-      "description": "total lifetime points for user"
-    },
-    "pointsForNextLevel": {
-      "type": "integer",
-      "description": "number of points at next level"
-    },
-    "level": {
-      "type": "integer",
-      "description": "user's level, based on lifetime points"
-    },
-    "energy": {
-      "type": "integer",
-      "description": "user's available energy points for activities"
-    },
-    "lastEnergizedAt": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "locale": {
-      "enum": ["en", "es"],
-      "description": "user's locale"
-    },
-    "units": {
-      "enum": ["IMPERIAL", "METRIC"],
-      "description": "user's preferred unit of measure"
-    },
-    "objective": {
-      "type": "string",
-      "description": "user's personal objective"
-    },
-    "teamId": {
-      "type": "integer"
-    },
-    "teamName": {
-      "type": "string"
-    },
-    "registeredAt": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "leagueId": {
-      "type": "integer"
-    },
-    "leagueName": {
-      "type": "string"
     },
     "updatedAt": {
       "type": "string",
@@ -89,8 +31,6 @@
   },
   "additionalProperties": false,
   "required": [
-    "id", "authenticationToken", "email", "firstName", "lastName", "gender", "avatarUrl", "birthdate", "timeZone", "lifetimePoints",
-    "level", "energy", "lastEnergizedAt", "locale", "units", "objective",
-    "teamId", "teamName", "registeredAt", "leagueId", "leagueName", "updatedAt"
+    "id", "authenticationToken", "email", "firstName", "lastName", "avatarUrl", "updatedAt"
   ]
 }
