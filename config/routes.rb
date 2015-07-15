@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
-  namespace 'api_docs' do
+  namespace 'api' do
     namespace 'v1', :constraints => {format: 'json'} do
       resources :users, :controller => "users", :only => [:create, :update, :show, :destroy] do
         collection do
