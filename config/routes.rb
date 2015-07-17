@@ -11,9 +11,11 @@ Rails.application.routes.draw do
         collection do
           post :forgot_password
           post :change_password
-          post :check_user
+          post :validate_email
         end
       end
     end
   end
+
+  match "*path", to: "errors#catch_404", via: :all
 end
