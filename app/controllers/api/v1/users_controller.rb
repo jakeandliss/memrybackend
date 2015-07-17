@@ -1,6 +1,6 @@
 module Api
   module V1
-    class UsersController  < Base
+    class UsersController < Base
       skip_before_action :verify_authenticity_token, if: :json_request?
       before_action      :validate_schema, only: [:create, :update]
       before_action      :load_user, only: [:show, :update, :destroy]

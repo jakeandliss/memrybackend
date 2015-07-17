@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     namespace 'v1', :constraints => {format: 'json'} do
+      
+      # User routes
       resources :users, :controller => "users", :only => [:create, :update, :show, :destroy] do
         collection do
           post :forgot_password
@@ -14,6 +16,9 @@ Rails.application.routes.draw do
           post :check_user
         end
       end
+
+      # Entries routes
+      resources :entries
     end
   end
 end

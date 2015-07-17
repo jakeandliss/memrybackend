@@ -24,39 +24,22 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
 gem 'pg'
-
 gem 'devise'
-
 gem 'devise-token_authenticatable', '~> 0.4.0'
-
 gem 'jwt', '1.1', git: 'https://github.com/progrium/ruby-jwt.git' # V1.1 supports 'exp' and is not released on RubyGems yet.
-
 gem 'rack-cors', require: 'rack/cors'
-
 gem "paperclip", "~> 4.2"
-
 gem 'redis', '~> 3.2.1'
-
 gem 'redis-objects', '~> 1.2.0'
-
 gem 'dotenv-rails', '~> 2.0.1'
-
 gem 'sidekiq'
-
 gem 'sinatra',  :require => nil
-
 gem 'friendly_id'
-
 gem 'delayed_paperclip'
-
 gem 'ancestry'
-
 gem 'json-schema'
-# Use Unicorn as the app server
-# gem 'unicorn'
-
+gem 'will_paginate'
 # Use Capistrano for deployment
 gem 'capistrano', '~> 3.3.5'
 gem 'capistrano-bundler', '~> 1.1.2'
@@ -67,12 +50,9 @@ gem 'capistrano-sidekiq', '~> 0.5'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
   gem 'awesome_print'
-
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
