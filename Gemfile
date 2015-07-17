@@ -52,6 +52,8 @@ gem 'friendly_id'
 gem 'delayed_paperclip'
 
 gem 'ancestry'
+
+gem 'json-schema'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
