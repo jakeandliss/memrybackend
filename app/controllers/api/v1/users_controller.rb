@@ -1,7 +1,8 @@
 module Api
   module V1
     class UsersController  < Base
-      skip_before_action :authenticate_user!
+      skip_before_action :authenticate_user!, only: [:create]
+      skip_before_action :verify_authenticity_token, if: :json_request?
       before_action      :validate_schema, only: [:create, :update]
       before_action      :load_user, only: [:show, :update, :destroy]
 
@@ -11,7 +12,7 @@ module Api
         if @user.save
           UserMailer.registration_success(@user).deliver_later
         else
-          report_errors_on(user)
+          report_errors_on(@user)
         end
       end
 

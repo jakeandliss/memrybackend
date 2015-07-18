@@ -56,6 +56,8 @@ gem 'ancestry'
 gem 'yard', '~> 0.8.7.6'
 
 gem 'swagger-docs', '~> 0.1.9'
+
+gem 'json-schema'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
