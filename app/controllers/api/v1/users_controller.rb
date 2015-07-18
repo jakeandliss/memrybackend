@@ -1,23 +1,22 @@
 module Api
   module V1
-    class UsersController  < ApplicationController
-      skip_before_action :verify_authenticity_token, if: :json_request?
+    class UsersController  < Base
+      skip_before_action :authenticate_user!
       before_action      :validate_schema, only: [:create, :update]
       before_action      :load_user, only: [:show, :update, :destroy]
 
       def create
-        user = User.new(@registration_attr)
+        @user = User.new @user_attr
 
-        if user.save
-          UserMailer.registration_success(@user).deliver_later!
-          render json: { message: 'Thanks for signing up!' }, status: :created
+        if @user.save
+          UserMailer.registration_success(@user).deliver_later
         else
           report_errors_on(user)
         end
       end
 
       def update
-        if @user.update_attributes(user_params)
+        if @user.update_attributes @user_attr
           render json: { message: t("user.update.success") }, status: :ok
         else
           render json: { error: @user.errors }, status: :not_acceptable
@@ -33,7 +32,7 @@ module Api
       end
 
       def forgot_password
-        @user = User.find_by(email: params[:user][:email])
+        @user = User.find_by email: params[:user][:email]
         if @user
           @user.send_password_reset
           UserMailer.forgot_password(@user).deliver_later!
@@ -44,7 +43,7 @@ module Api
       end
 
       def change_password
-        user = User.find_by(reset_password_token: params[:user][:token])
+        user = User.find_by reset_password_token: params[:user][:token]
         if user
           user.password = params[:user][:password]
           user.reset_password_token = nil
@@ -55,11 +54,11 @@ module Api
         end
       end
 
-      def check_user
-        if User.find_by(email: params[:email])
-          render json: { message: t("user.check_user_exists.success") }, status: :ok
+      def validate_email
+        if User.find_by email: params[:user][:email]
+          render json: { message: t('user.validate_email.error') }, status: :ok
         else
-          render json: { error: t("user.common.failure") }, status: :not_found
+          render json: { message: t('user.validate_email.success')}, status: :ok
         end
       end
 
