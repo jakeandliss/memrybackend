@@ -3,9 +3,10 @@ module Api
     class EntriesController < Base
 
       # Both lines below should be removed once auth is working and we have
-      # current_user
-      before_action :get_user
-      attr_accessor :current_user
+      # current_user as a helper method this is just a mock setup to mimic
+      # current_user method of device gem
+        before_action :get_user
+        attr_accessor :current_user
       # Remove lines above this comment when auth is working
 
       before_action :validate_schema, only: [:create, :update]
@@ -18,6 +19,7 @@ module Api
         if params[:tag]
           # filter using search
           @tag = current_user.tags.find_by(name: params[:tag])
+          #TODO Refactor the paginate code used thrice
           @entries = @tag ? 
                       current_user.entries.childrens_of(@tag).paginate(:page => params[:page], :per_page => 10)
                       : current_user.entries.paginate(:page => params[:page], :per_page => 10)
@@ -60,6 +62,28 @@ module Api
         end
       end
 
+      def update
+        if @entry.update_attributes!(entry_attributes) && @entry.add_tags(params[:entry][:all_tags])
+          render json: {
+            message: "Entry sucessfully updated",
+            entry: @entry.as_json(:include => :tags)
+          }, status: :ok
+        else
+          render json: {
+            message: "Entry couldn't be updated",
+            errors: @entry.errors
+          }, status: :unprocessable_entity
+        end
+      end
+
+      def destroy
+        if @entry and @entry.destroy
+          render json: {
+            message: "Entry deleted successfully"
+          }, status: :ok
+        end
+      end
+
       private
       
       def date_filters
@@ -70,10 +94,6 @@ module Api
           finish: finish
         }
       end
-
-      # def entry_params
-      #   params.require(:entry).permit(:title, :content, :title_date, :resource_ids => [])
-      # end
 
       def entry_attributes
         @entry_attr = convert_hash_keys(
