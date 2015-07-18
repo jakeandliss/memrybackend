@@ -26,13 +26,14 @@ en:
     update:
       success: "Your profile has been updated."
     destroy:
-      success: "Your account is deleted with all your datas."
+      success: "Your account is deleted."
     forgot_password:
       success: "Password recovery link has been sent to your email."
     change_password:
       success: "Your password is changed successfully."
       failure: "Invalid password recovery token."
-    check_user_exists:
-      success: "User already exits."
+    validate_email:
+      success: "Email not found"
+      error:   "Email already in use!!."
     common:
       failure: "This is not a registered account."

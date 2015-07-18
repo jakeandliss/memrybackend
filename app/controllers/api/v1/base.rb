@@ -1,19 +1,28 @@
 module Api
   module V1
     class Base < ApplicationController
+      # before_action :authenticate_user!
+      # helper_method :current_user
+
+      # Rescuing and rendering a meaningful json message in-case of record not
+      # found or routing error
       rescue_from ActiveRecord::RecordNotFound, ActionController::RoutingError do |exception|
         render json: { error: exception.message }, status: :not_found
       end
 
-      rescue_from Exception do |exception|
-        render json: { error: exception.message }, status: :internal_server_error
+      # Rescuing and rendering a meaningful json message in-case of an internal
+      # server error
+      # rescue_from Exception do |exception|
+      #   render json: { error: exception.message }, status: :internal_server_error
+      # end
+
+      # Rescuing when a invalid model submission happens
+      rescue_from ActiveRecord::RecordInvalid do |exception|
+        render json: { error: exception.message }, status: :unprocessable_entity
       end
 
-      #before_action :authenticate_user!
-      # helper_method :current_user
-
       def validate_json(schema, data)
-        schema_directory = Rails.root.join('doc', 'api_docs', 'schemas')
+        schema_directory = Rails.root.join('doc', 'api', 'schemas')
         schema_path      = schema_directory.join("#{schema}.json").to_s
         @errors          ||= JSON::Validator.fully_validate(schema_path, data, :errors_as_objects => true)
       end
