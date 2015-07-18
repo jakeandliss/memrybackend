@@ -96,9 +96,6 @@ class Resource < ActiveRecord::Base
     "/assets/" + Rails.application.assets.find_asset(image_name).digest_path
   end
 
-
-
-
   # Method returns true if file's content type contains word 'image', overwise false
   def is_image_type?
     avatar_content_type ? avatar_content_type =~ %r(image) : false

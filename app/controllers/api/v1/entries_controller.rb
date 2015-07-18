@@ -6,6 +6,10 @@ module Api
       # current_user
       before_action :get_user
       attr_accessor :current_user
+      # Remove lines above this comment when auth is working
+
+      before_action :validate_schema, only: [:create, :update]
+      before_action :fetch_entry, only: [:show, :edit, :update, :destroy]
 
       def index
         @entry = current_user.entries.new(:title_date => Date.today)
@@ -13,7 +17,7 @@ module Api
 
         if params[:tag]
           # filter using search
-          @tag = Tag.find_by(name: params[:tag])
+          @tag = current_user.tags.find_by(name: params[:tag])
           @entries = @tag ? 
                       current_user.entries.childrens_of(@tag).paginate(:page => params[:page], :per_page => 10)
                       : current_user.entries.paginate(:page => params[:page], :per_page => 10)
@@ -27,6 +31,35 @@ module Api
         render json: { entries: @entries }, status: :ok
       end
 
+
+      def create
+        @entry = current_user.entries.new(entry_attributes)
+
+        if @entry.save && @entry.add_tags(params[:entry][:all_tags])
+          render json: { 
+            message: "Entry sucessfully created", 
+            entry: @entry.as_json(:include => :tags) 
+          }, status: :ok
+        else
+          render json: { 
+            message: "Entry couldn't be created", 
+            errors: @entry.errors 
+          }, status: :unprocessable_entity
+        end
+      end
+
+      def show
+        if @entry
+          render json: { 
+            entry: @entry.as_json(:include => :tags)
+          }, status: :ok
+        else
+          render json: {
+            message: "Entry with id #{params[:id]} not found"
+          }, status: :not_found
+        end
+      end
+
       private
       
       def date_filters
@@ -38,11 +71,35 @@ module Api
         }
       end
 
+      # def entry_params
+      #   params.require(:entry).permit(:title, :content, :title_date, :resource_ids => [])
+      # end
+
+      def entry_attributes
+        @entry_attr = convert_hash_keys(
+          params.require(:entry)
+            .permit(:title, :content, :titleDate, :resourceIds => [])
+        )
+      end
+
       # Remove method when auth is working and current_user helper method is used
       def get_user
         @current_user = User.first
       end
   
+      def validate_schema
+        validate_json('entryForm', params.require(:entry))
+        if @errors.empty?
+          entry_attributes
+        else
+          render json: { message: @errors }, status: :unprocessable_entity
+        end
+      end
+
+      def fetch_entry
+        @entry = current_user.entries.where(id: params[:id]).first
+      end
+
     end
   end
 end

@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": "link for memrybook entry",
+  "type": "object",
+  "navigationLink": {
+    "type": "object",
+    "properties": {
+      "link": {
+        "type": "string",
+        "description": "Entry link"
+      }
+    }
+  }
+}
