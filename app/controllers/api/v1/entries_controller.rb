@@ -81,6 +81,10 @@ module Api
           render json: {
             message: "Entry deleted successfully"
           }, status: :ok
+        else
+          render json: {
+            message: "Entry with id #{params[:id]} not found"
+          }, status: :not_found
         end
       end
 
