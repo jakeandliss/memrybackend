@@ -37,3 +37,10 @@ en:
       error:   "Email already in use!!."
     common:
       failure: "This is not a registered account."
+  tags:
+    create:
+      success: "New tag created."
+    update:
+      success: "Tag updated successfully"
+    destroy:
+      success: "Tag deleted successfully"
