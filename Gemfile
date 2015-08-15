@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.2.2'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -20,7 +20,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
-# bundle exec rake doc:rails generates the API under doc/api.
+# bundle exec rake doc:rails generates the API under doc/api_docs.
 gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -28,6 +28,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'pg'
 
 gem 'devise'
+
+gem 'devise-token_authenticatable', '~> 0.4.0'
 
 gem 'jwt', '1.1', git: 'https://github.com/progrium/ruby-jwt.git' # V1.1 supports 'exp' and is not released on RubyGems yet.
 
@@ -39,14 +41,33 @@ gem 'redis', '~> 3.2.1'
 
 gem 'redis-objects', '~> 1.2.0'
 
-gem 'swagger-ui_rails'
-
 gem 'dotenv-rails', '~> 2.0.1'
+
+gem 'sidekiq'
+
+gem 'sinatra',  :require => nil
+
+gem 'friendly_id'
+
+gem 'delayed_paperclip'
+
+gem 'ancestry'
+
+gem 'yard', '~> 0.8.7.6'
+
+gem 'swagger-docs', '~> 0.1.9'
+
+gem 'json-schema'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'capistrano', '~> 3.3.5'
+gem 'capistrano-ext', '~> 1.2.1'
+gem 'capistrano-bundler', '~> 1.1.2'
+gem 'capistrano-rails', '~> 1.1'
+gem 'capistrano-rbenv', '~> 2.0'
+gem 'capistrano-sidekiq', '~> 0.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

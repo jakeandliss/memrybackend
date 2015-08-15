@@ -1,12 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema",
   "type": "object",
-  "description": "User registration form submit",
+  "description": "User Sign Up form",
   "properties": {
-    "userRegistration": {
-      "leagueId": {
-        "type": "integer"
-      },
+    "user": {
       "firstName": {
         "type": "string"
       },
@@ -16,19 +13,12 @@
       "email": {
         "type": "string"
       },
-      "birthdate": {
-        "type": "string",
-        "format": "date"
-      },
-      "age": {
-        "type": "integer"
-      },
       "password": {
         "type": "string"
       }
     }
   },
   "required": [
-    "leagueId", "firstName", "lastName", "email", "password", "birthdate"
+    "firstName", "email", "password"
   ]
 }
