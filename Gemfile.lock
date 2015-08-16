@@ -79,6 +79,7 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.7)
       climate_control (>= 0.0.3, < 1.0)
+    coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -127,6 +128,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    method_source (0.8.2)
     mime-types (2.6.1)
     mimemagic (0.3.0)
     mini_portile (0.6.2)
@@ -145,6 +147,13 @@ GEM
       mime-types
       mimemagic (= 0.3.0)
     pg (0.18.2)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (3.2.0)
+      byebug (~> 5.0)
+      pry (~> 0.10)
     rack (1.6.4)
     rack-cors (0.4.0)
     rack-protection (1.5.3)
@@ -205,6 +214,7 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
+    slop (3.6.0)
     spring (1.3.6)
     sprockets (3.2.0)
       rack (~> 1.0)
@@ -265,6 +275,7 @@ DEPENDENCIES
   jwt (= 1.1)!
   paperclip (~> 4.2)
   pg
+  pry-byebug
   rack-cors
   rails (~> 4.2.2)
   redis (~> 3.2.1)
@@ -281,4 +292,4 @@ DEPENDENCIES
   yard (~> 0.8.7.6)
 
 BUNDLED WITH
-   1.10.5
+   1.10.6
