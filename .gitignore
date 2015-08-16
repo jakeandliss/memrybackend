@@ -18,3 +18,4 @@ config/database.yml
 /tmp
 .idea/
 vendor/
+public/system
