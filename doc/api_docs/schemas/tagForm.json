@@ -1,0 +1,19 @@
+{
+  "$schema": "http:://json-schema.org/draft-04/schema",
+  "description": "Label creation form",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "String"
+    },
+    "userId": {
+      "type": "integer"
+    },
+    "ancestry": {
+      "type": "string"
+    },
+    "required": [
+      "name", "userId"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "User session information, presented after login",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "authenticationToken": {
+      "type": "string",
+      "description": "Authentication token, used for API requests"
+    },
+    "email": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "avatarUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL for avatar image"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id", "authenticationToken", "email", "firstName", "lastName", "avatarUrl", "updatedAt"
+  ]
+}

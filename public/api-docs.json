@@ -1,0 +1,15 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "/",
+  "apis": [
+    {
+      "path": "groups.{format}",
+      "description": "Group Management"
+    },
+    {
+      "path": "users.{format}",
+      "description": "User Management"
+    }
+  ]
+}
