@@ -22,7 +22,7 @@ module Api
       end
 
       def validate_json(schema, data)
-        schema_directory = Rails.root.join('doc', 'api', 'schemas')
+        schema_directory = Rails.root.join('doc', 'api_docs', 'schemas')
         schema_path      = schema_directory.join("#{schema}.json").to_s
         @errors          ||= JSON::Validator.fully_validate(schema_path, data, :errors_as_objects => true)
       end

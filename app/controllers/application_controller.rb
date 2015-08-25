@@ -25,11 +25,12 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_by_token
-    session_exist? && (token = user_auth_token) && (user_id = User.id_from_authentication_token(token)) && find_active_user(user_id)
+    session_exist? && User.id_from_authentication_token( user_auth_token ).present?
   end
 
   def session_exist?
-    session && session[:token] == user_auth_token
+    #session && session[:token] == user_auth_token
+    session.present?
   end
 
   def user_auth_token
