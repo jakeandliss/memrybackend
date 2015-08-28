@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         end
       end
       resources :tags, :only => [:create, :update, :destroy, :index]
+      resources :entries
     end
   end
 
