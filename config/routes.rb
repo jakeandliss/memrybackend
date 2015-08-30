@@ -2,8 +2,8 @@ Rails.application.routes.draw do
 
   devise_for :users
   # root 'welcome#index'
-  require 'sidekiq/web'
-  mount Sidekiq::Web => '/sidekiq'
+#  require 'sidekiq/web'
+#  mount Sidekiq::Web => '/sidekiq'
 
   namespace 'api' do
     namespace 'v1', :constraints => {format: 'json'} do
@@ -18,9 +18,9 @@ Rails.application.routes.draw do
           post :validate_email
           get  :tags, :to => "tags#user_tags"
         end
+        resources :entries
       end
       resources :tags, :only => [:create, :update, :destroy, :index]
-      resources :entries
     end
   end
 

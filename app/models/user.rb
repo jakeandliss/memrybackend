@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
+         :recoverable, :rememberable, :trackable, :validatable
 
   has_many :entries, dependent: :destroy
   has_many :tags, :dependent => :destroy
@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, :email, :password, presence: true
 
 
-  def id_from_authentication_token(token)
+  def self.id_from_authentication_token(token)
     REDIS.get(token).try(:to_i)
   end
 
