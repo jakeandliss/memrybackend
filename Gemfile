@@ -33,7 +33,9 @@ gem 'jwt', '1.1', git: 'https://github.com/progrium/ruby-jwt.git' # V1.1 support
 
 gem 'rack-cors', require: 'rack/cors'
 
-gem "paperclip", "~> 4.2"
+gem "paperclip", "4.2.3"
+
+gem "delayed_paperclip"
 
 gem 'redis', '~> 3.2.1'
 
