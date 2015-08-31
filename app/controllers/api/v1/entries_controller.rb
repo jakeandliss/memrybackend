@@ -13,7 +13,12 @@ module Api
       end
 
       def create
-        
+        @entry = @user.entries.build(entry_params)
+        if @entry.save
+          render json: 'Entry created successfully', status: 200 
+        else
+          render json: @entry.errors.full_messages.join(' ,'), status: 422
+        end
       end
 
       def update
@@ -29,6 +34,9 @@ module Api
         render json: 'User Not Found', status: 422 if @user.blank?
       end
 
+      def entry_params
+        params.require(:entry).permit(:title, :content, resources_attributes: [:attachment] )
+      end
     end
   end
 end
