@@ -28,11 +28,14 @@ module Api
 
       def destroy
         @entry = @user.entries.where(id: params[:id] ).first
-        render json: "Entry Not found", status: 422 if @entry.blank?
-        if @entry.destroy
-          render json: 'Entry deleted successfully', status: 200 
+        if @entry.blank?
+          render json: "Entry Not found", status: 422 
         else
-          render json: 'Sorry! Entry cannot be deleted now', status: 422
+          if @entry.destroy
+            render json: 'Entry deleted successfully', status: 200 
+          else
+            render json: 'Sorry! Entry cannot be deleted now', status: 422
+          end
         end
       end
 
