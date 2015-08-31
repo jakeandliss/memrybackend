@@ -9,7 +9,9 @@ module Api
         @entries =  @user.entries.preload(:resources)
       end
 
-      def new
+      def show
+        @entry = @user.entries.where(id: params[:id] ).first
+        render json: "Entry Not found", status: 422 if @entry.blank?
       end
 
       def create
@@ -25,6 +27,13 @@ module Api
       end
 
       def destroy
+        @entry = @user.entries.where(id: params[:id] ).first
+        render json: "Entry Not found", status: 422 if @entry.blank?
+        if @entry.destroy
+          render json: 'Entry deleted successfully', status: 200 
+        else
+          render json: 'Sorry! Entry cannot be deleted now', status: 422
+        end
       end
 
       private
