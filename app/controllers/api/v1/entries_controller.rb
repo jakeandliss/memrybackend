@@ -16,26 +16,32 @@ module Api
 
       def create
         @entry = @user.entries.build(entry_params)
-        if @entry.save
-          render json: 'Entry created successfully', status: 200 
-        else
-          render json: @entry.errors.full_messages.join(' ,'), status: 422
+        unless @entry.save
+          render json: {error: @entry.errors.full_messages.join(', ')}, status: 422
         end
       end
 
       def update
+        @entry = @user.entries.where(id: params[:id] ).first
+        if @entry.present?
+          unless @entry.update_attributes(entry_params)
+            render json: {error: @entry.errors.full_messages.join(', ')}, status: 422
+          end
+        else
+          render json: "Entry Not found", status: 422
+        end
       end
 
       def destroy
         @entry = @user.entries.where(id: params[:id] ).first
-        if @entry.blank?
-          render json: "Entry Not found", status: 422 
-        else
+        if @entry.present?
           if @entry.destroy
             render json: 'Entry deleted successfully', status: 200 
           else
             render json: 'Sorry! Entry cannot be deleted now', status: 422
           end
+        else
+          render json: "Entry Not found", status: 422 
         end
       end
 
