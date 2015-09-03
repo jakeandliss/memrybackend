@@ -37,6 +37,7 @@ en:
       error:   "Email already in use!!."
     common:
       failure: "This is not a registered account."
+    not_found: "User Not Found"
   tags:
     create:
       success: "New tag created."
@@ -44,3 +45,5 @@ en:
       success: "Tag updated successfully"
     destroy:
       success: "Tag deleted successfully"
+  entries:
+    not_found: "Entry Not Found"
