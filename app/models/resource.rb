@@ -5,30 +5,30 @@ class Resource < ActiveRecord::Base
 
 
   # Apply styling appropriate for this file
-  has_attached_file :avatar,
+  has_attached_file :attachment,
                     styles: lambda { |a| a.instance.check_file_type},
                     default_url: "no_image.png",
                     processors: lambda { |a| a.processors},
                     only_process: [:thumb]
 
   # # Don't forget to add name of the image that will be shown while the file is loading
-  process_in_background :avatar, {
-                                   only_process: [:original],
-                                   processing_image_url: lambda { |a| a.instance.processing_image_path("vid-processing.jpg")}
-                               }
+  #process_in_background :attachment, {
+  #                                 only_process: [:original],
+  #                                 processing_image_url: lambda { |a| a.instance.processing_image_path("vid-processing.jpg")}
+  #                             }
 
 
 
   def reprocess_without_delay
     unless is_video_type?
-      avatar.reprocess_without_delay!
-      update(avatar_processing: false)
+      attachment.reprocess_without_delay!
+      #update(avatar_processing: false)
     end
   end
 
 
 
-  validates_attachment_content_type :avatar, :content_type => [
+  validates_attachment_content_type :attachment, :content_type => [
                                                /\Aaudio\/.*\Z/,
                                                /\Avideo\/.*\Z/,
                                                /\Aimage\/.*\Z/,
@@ -101,20 +101,20 @@ class Resource < ActiveRecord::Base
 
   # Method returns true if file's content type contains word 'image', overwise false
   def is_image_type?
-    avatar_content_type ? avatar_content_type =~ %r(image) : false
+    attachment_content_type ? attachment_content_type =~ %r(image) : false
   end
 
   # Method returns true if file's content type contains word 'video', overwise false
   def is_video_type?
-    avatar_content_type ? avatar_content_type =~ %r(video) : false
+    attachment_content_type ? attachment_content_type =~ %r(video) : false
   end
 
   # Method returns true if file's content type contains word 'audio', overwise false
   def is_audio_type?
-    avatar_content_type ? avatar_content_type =~ /\Aaudio\/.*\Z/ : false
+    attachment_content_type ? attachment_content_type =~ /\Aaudio\/.*\Z/ : false
   end
 
   def is_doc_type?
-    avatar_content_type = ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
+    attachment_content_type = ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
   end
 end
