@@ -10,14 +10,15 @@ set :user, 'deployer'
 # Default value for :scm is :git
 set :scm, :git
 
-set :repository, 'git@github.com:jakeandliss/memrybackend.git'
+set :repo_url, 'git@github.com:jakeandliss/memrybackend.git'
 
 set :branch, 'develop'
 
 set :scm_passphrase, ''
 
 # Default deploy_to directory
-set :deploy_to, "/home/#{user}/#{application}"
+#set :deploy_to, "/home/#{user}/#{application}"
+set :deploy_to, "/home/#{fetch(:user)}/test_deployment/#{fetch(:application)}"
 
 # Default value for :log_level is :debug
 set :log_level, :debug
@@ -41,8 +42,8 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :rbenv_type, :system
-set :rbenv_ruby, File.read(File.expand_path('../../.ruby-version', __FILE__))
+#set :rbenv_type, :system
+#set :rbenv_ruby, File.read(File.expand_path('../../.ruby-version', __FILE__))
 
 namespace :deploy do
 
@@ -62,9 +63,9 @@ namespace :deploy do
   task :restart do
   end
 
-  after :publishing, :restart
-  after :restart, :restart_background
-  after :restart, :reload_unicorn
+#  after :publishing, :restart
+#  after :restart, :restart_background
+#  after :restart, :reload_unicorn
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do

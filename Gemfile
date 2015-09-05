@@ -24,6 +24,14 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+#
+#
+gem 'capistrano', '~> 3.3.5'
+gem 'capistrano-ext', '~> 1.2.1'
+gem 'capistrano-bundler', '~> 1.1.2'
+gem 'capistrano-rails', '~> 1.1'
+gem 'capistrano-sidekiq', '~> 0.5'
+gem 'capistrano-rvm'
 
 gem 'pg'
 
