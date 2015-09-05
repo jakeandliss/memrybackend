@@ -1,8 +1,6 @@
-
 set :deploy_to, "/home/#{fetch(:user)}/staging/#{fetch(:application)}"
 set :password, ask('Server password:', nil, echo: false)
 
-set :rvm_type, :user                     # Defaults to: :auto
 set :rvm_ruby_version, '2.2.3'      # Defaults to: 'default'
 
 server "memrybook.com",
