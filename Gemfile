@@ -52,6 +52,8 @@ gem 'redis-objects', '~> 1.2.0'
 gem 'swagger-ui_rails'
 
 gem 'dotenv-rails', '~> 2.0.1'
+
+gem 'json-schema'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -60,7 +62,7 @@ gem 'dotenv-rails', '~> 2.0.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  #gem 'byebug'
 
   gem 'awesome_print'
 
@@ -69,4 +71,5 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'pry-byebug'
 end
