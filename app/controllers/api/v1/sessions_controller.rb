@@ -10,7 +10,7 @@ module Api
       respond_to :json
      
       def create
-        validate_json('userLoginForm', params.require(:userLoginForm))
+        validate_json('userLoginForm', params.require(:user))
         render json: { message: @errors }, status: :unprocessable_entity if @errors.present?
         super
         auth_token = new_authentication_token
