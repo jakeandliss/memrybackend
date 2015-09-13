@@ -45,6 +45,8 @@ gem "paperclip", "4.2.3"
 
 gem 'paperclip-compression'
 
+gem 'paperclip-av-transcoder'
+
 gem "delayed_paperclip"
 
 gem 'redis', '~> 3.2.1'
