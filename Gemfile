@@ -43,6 +43,8 @@ gem 'rack-cors', require: 'rack/cors'
 
 gem "paperclip", "4.2.3"
 
+gem 'paperclip-compression'
+
 gem "delayed_paperclip"
 
 gem 'redis', '~> 3.2.1'
