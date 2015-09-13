@@ -52,9 +52,8 @@ module Api
         render json: 'User Not Found', status: :not_found if @user.blank?
       end
 
-      def
-
       def entry_params
+        logger.info "params: #{params}"
         params.require(:entry).permit(:title, :content, resources_attributes: [:attachment] )
       end
     end

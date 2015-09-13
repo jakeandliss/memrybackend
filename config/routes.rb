@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users, controllers: { sessions: "api/v1/sessions"}
   # root 'welcome#index'
 #  require 'sidekiq/web'
 #  mount Sidekiq::Web => '/sidekiq'
@@ -9,8 +9,10 @@ Rails.application.routes.draw do
     namespace 'v1', :constraints => {format: 'json'} do
 
     devise_scope :user do
-       resource :sessions, only: [:new, :create, :destroy]
+       #resource :sessions, only: [:new, :create, :destroy]
+
      end
+
       resources :users, :controller => "users", :only => [:create, :update, :show, :destroy] do
         collection do
           post :forgot_password

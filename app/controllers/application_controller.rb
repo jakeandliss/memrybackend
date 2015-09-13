@@ -25,7 +25,8 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_by_token
-    session_exist? && User.id_from_authentication_token( user_auth_token ).present?
+     User.id_from_authentication_token( user_auth_token ).present?
+    #session_exist? && User.id_from_authentication_token( user_auth_token ).present?
   end
 
   def session_exist?
@@ -34,11 +35,13 @@ class ApplicationController < ActionController::Base
   end
 
   def user_auth_token
+    logger.info "HTTP_AUTH_TOKEN: #{request.headers['HTTP_AUTH_TOKEN']}"
     request.headers['HTTP_AUTH_TOKEN']
   end
 
   def mobile_browser?
     request.user_agent =~ /Mobile|webOS/
+    true
   end
 
   def remove_token_from_redis(token)
