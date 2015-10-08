@@ -27,6 +27,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #
 #
 gem 'capistrano', '~> 3.3.5'
+gem 'ancestry'
 gem 'capistrano-ext', '~> 1.2.1'
 gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1'
