@@ -1,5 +1,5 @@
 worker_processes Integer(ENV['WEB_CONCURRENCY'] || 2)
-APP_PATH = ENV['APP_PATH']
+APP_PATH = '/home/deployer/memrybackend'
 working_directory APP_PATH
 preload_app true
 timeout 60
