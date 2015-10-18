@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1', :constraints => {format: 'json'} do
 
-    devise_scope :user do
-       #resource :sessions, only: [:new, :create, :destroy]
-
-     end
+    # devise_scope :user do
+    #    #resource :sessions, only: [:new, :create, :destroy]
+    #
+    #  end
 
       resources :users, :controller => "users", :only => [:create, :update, :show, :destroy] do
         collection do
