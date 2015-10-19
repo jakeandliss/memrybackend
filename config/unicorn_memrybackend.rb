@@ -4,7 +4,7 @@ working_directory APP_PATH
 preload_app true
 timeout 60
 
-listen APP_PATH + "/tmp/unicorn_memrybook.sock", :backlog => 64
+listen "104.236.57.97:8085"
 pid APP_PATH + "/tmp/unicorn.pid"
 
 stderr_path APP_PATH + "/log/unicorn.error.log"
