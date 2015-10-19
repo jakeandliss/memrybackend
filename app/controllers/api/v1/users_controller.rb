@@ -10,7 +10,7 @@ module Api
         @user = User.new @user_attr
 
         if @user.save
-          UserMailer.registration_success(@user).deliver_later
+          # UserMailer.registration_success(@user).deliver_later
         else
           report_errors_on(@user)
         end
