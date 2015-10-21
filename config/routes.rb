@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     #
     #  end
 
+      resource :sessions, only: [:new, :create, :destroy]
+
       resources :users, :controller => "users", :only => [:create, :update, :show, :destroy] do
         collection do
           post :forgot_password

@@ -7,5 +7,3 @@ timeout 60
 listen "104.236.57.97:8085"
 pid APP_PATH + "/tmp/unicorn.pid"
 
-stderr_path APP_PATH + "/log/unicorn.error.log"
-stdout_path APP_PATH + "/log/unicorn.out.log"
