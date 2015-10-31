@@ -39,7 +39,8 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  CORS_ALLOWED_DOMAINS = '*'
+  # allow CORS from localhost as well as memrybook.com domains
+  CORS_ALLOWED_DOMAINS = /localhost:?[0-9]*/, /127.0.0.1?[0-9]*/, /104.236.57.97/, /192.168.*.*:?[0-9]*/, /.*\.memrybook\.com/, /file:.*/
 
   config.active_job.queue_adapter = :sidekiq
   config.action_mailer.default_url_options = { :host => "localhost:3000" }
