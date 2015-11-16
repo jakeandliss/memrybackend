@@ -36,7 +36,7 @@ gem 'pg'
 
 gem 'devise'
 
-gem 'jwt', '1.1', git: 'https://github.com/progrium/ruby-jwt.git' # V1.1 supports 'exp' and is not released on RubyGems yet.
+gem 'devise-token_authenticatable'
 
 gem 'rack-cors', require: 'rack/cors'
 
